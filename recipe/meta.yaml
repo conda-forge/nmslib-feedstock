@@ -2,11 +2,11 @@
 {% set version = "2.1.1" %}
 
 package:
-  name: {{ name|lower }}
+  name: nmslib
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/n/nmslib/nmslib-{{ version }}.tar.gz
   sha256: 971294a7766f91c697d63c88c8adda4797a944346cc535a217393f4167a19c20
 
 build:
@@ -21,9 +21,9 @@ requirements:
     - python
     - setuptools
     - psutil
-    - pip >=10
+    - pip
     - pybind11 >=2.2.3
-    - numpy >=1.10.0
+    - numpy
   run:
     - python
     - {{ pin_compatible('numpy') }}
