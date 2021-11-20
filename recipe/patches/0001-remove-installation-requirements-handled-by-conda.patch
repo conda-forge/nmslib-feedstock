@@ -1,0 +1,25 @@
+From f24be59ff8bebdf386ea78e97bcbd098aeca32b7 Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Sun, 21 Nov 2021 10:18:23 +1100
+Subject: [PATCH] remove installation requirements (handled by conda)
+
+---
+ python_bindings/setup.py | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/python_bindings/setup.py b/python_bindings/setup.py
+index 764b589..68fca03 100755
+--- a/python_bindings/setup.py
++++ b/python_bindings/setup.py
+@@ -181,8 +181,6 @@ setup(
+  on methods for non-metric spaces. NMSLIB is possibly the first library with a principled 
+  support for non-metric space searching.""",
+     ext_modules=ext_modules,
+-    install_requires=dep_list,
+-    setup_requires=dep_list,
+     cmdclass={'build_ext': BuildExt},
+     test_suite="tests",
+     zip_safe=False,
+-- 
+2.32.0.windows.2
+

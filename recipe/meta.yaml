@@ -8,6 +8,8 @@ package:
 source:
   url: https://pypi.io/packages/source/n/nmslib/nmslib-{{ version }}.tar.gz
   sha256: 971294a7766f91c697d63c88c8adda4797a944346cc535a217393f4167a19c20
+  patches:
+    - patches/0001-remove-installation-requirements-handled-by-conda.patch
 
 build:
   number: 0
