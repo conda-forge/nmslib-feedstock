@@ -10,6 +10,17 @@ source:
   sha256: 971294a7766f91c697d63c88c8adda4797a944346cc535a217393f4167a19c20
   patches:
     - patches/0001-remove-installation-requirements-handled-by-conda.patch
+    # upstream has a cpu-guard that heckles people to compile from source if their
+    # CPU supports more features than the library has been compiled with, see
+    # https://github.com/nmslib/nmslib/blob/v2.1.1/python_bindings/tensorflow/cpu_feature_guard.cc#L158-L161
+    # needless to say, we need to aim for portability here, and want to avoid
+    # people following the instructions to install from pip, which might run
+    # into various problems around ABIs of numpy/C++ etc.
+    # Hopefully, we can provide more specific builds per CPU architecture
+    # in the future, see conda-forge/conda-forge.github.io#1261
+    - patches/0002-silence-log-that-tells-people-to-install-from-pip.patch
+    # backport nmslib/nmslib#488 for compatibility with newer pybind11
+    - patches/0003-Fix-import-on-newer-versions-of-pybind11-fixes-471.patch
 
 build:
   number: 0

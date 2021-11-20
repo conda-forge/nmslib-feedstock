@@ -1,0 +1,54 @@
+From c00a5dc5d136d26046da74278a4c6af2dd1c3665 Mon Sep 17 00:00:00 2001
+From: Geoffrey Thomas <geofft@twosigma.com>
+Date: Wed, 16 Jun 2021 20:41:25 -0400
+Subject: [PATCH 3/3] Fix import on newer versions of pybind11 (fixes #471)
+
+logging.getLogger("nmslib") is not a module, so it can't be assigned to
+a py::module.
+
+Revert the changes to pin the pybind11 version.
+---
+ python_bindings/nmslib.cc        | 2 +-
+ python_bindings/requirements.txt | 2 +-
+ python_bindings/setup.py         | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/python_bindings/nmslib.cc b/python_bindings/nmslib.cc
+index 65efe85..30504ae 100644
+--- a/python_bindings/nmslib.cc
++++ b/python_bindings/nmslib.cc
+@@ -444,7 +444,7 @@ PYBIND11_PLUGIN(nmslib) {
+ #endif
+   // Log using the python logger, instead of defaults built in here
+   py::module logging = py::module::import("logging");
+-  py::module nmslibLogger = logging.attr("getLogger")("nmslib");
++  py::object nmslibLogger = logging.attr("getLogger")("nmslib");
+   setGlobalLogger(new PythonLogger(nmslibLogger));
+ 
+   initLibrary(0 /* seed */, LIB_LOGCUSTOM, NULL);
+diff --git a/python_bindings/requirements.txt b/python_bindings/requirements.txt
+index ec584b3..3256780 100644
+--- a/python_bindings/requirements.txt
++++ b/python_bindings/requirements.txt
+@@ -1,4 +1,4 @@
+ numpy>=1.10.0
+-pybind11<2.6.2
++pybind11>=2.2.3
+ sphinx_rtd_theme
+ 
+diff --git a/python_bindings/setup.py b/python_bindings/setup.py
+index 68fca03..c27ab37 100755
+--- a/python_bindings/setup.py
++++ b/python_bindings/setup.py
+@@ -10,7 +10,7 @@ __version__ = '2.1.1'
+ if sys.platform.startswith("win") and struct.calcsize("P") * 8 == 32:
+     raise RuntimeError("Windows 32-bit is not supported.")
+ 
+-dep_list = ['pybind11<2.6.2', 'psutil']
++dep_list = ['pybind11>=2.2.3', 'psutil']
+ dep_list.append("numpy>=1.10.0,<1.17 ; python_version=='2.7'")
+ dep_list.append("numpy>=1.10.0 ; python_version>='3.5'")
+ 
+-- 
+2.32.0.windows.2
+

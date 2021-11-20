@@ -1,0 +1,27 @@
+From 9a85e9f981a0435f19909c66d5c97e0d3fbf2201 Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Sun, 21 Nov 2021 10:35:18 +1100
+Subject: [PATCH 2/3] silence log that tells people to install from pip
+
+---
+ python_bindings/tensorflow/cpu_feature_guard.cc | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/python_bindings/tensorflow/cpu_feature_guard.cc b/python_bindings/tensorflow/cpu_feature_guard.cc
+index 08b97c8..9ab0337 100644
+--- a/python_bindings/tensorflow/cpu_feature_guard.cc
++++ b/python_bindings/tensorflow/cpu_feature_guard.cc
+@@ -155,10 +155,6 @@ void InfoAboutUnusedCPUFeatures() {
+                 << "TensorFlow with the appropriate compiler flags." << std::endl;
+ #endif
+ */
+-      std::cerr << "Your CPU supports instructions that this binary "
+-                << "was not compiled to use:" << missing_instructions << std::endl;
+-      std::cerr << "For maximum performance, you can install NMSLIB from sources " << std::endl
+-                << "pip install --no-binary :all: nmslib" << std::endl; 
+     }
+ }
+ 
+-- 
+2.32.0.windows.2
+
