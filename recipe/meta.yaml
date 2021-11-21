@@ -41,6 +41,7 @@ requirements:
     - python
     - {{ pin_compatible('numpy') }}
     - pybind11 >=2.2.3
+    - psutil
 
 test:
   imports:
