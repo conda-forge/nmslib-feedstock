@@ -21,6 +21,7 @@ source:
     - patches/0002-silence-log-that-tells-people-to-install-from-pip.patch
     # backport nmslib/nmslib#488 for compatibility with newer pybind11
     - patches/0003-Fix-import-on-newer-versions-of-pybind11-fixes-471.patch
+    - patches/0004-do-not-escape-quotes-for-VERSION_INFO.patch
 
 build:
   number: 0

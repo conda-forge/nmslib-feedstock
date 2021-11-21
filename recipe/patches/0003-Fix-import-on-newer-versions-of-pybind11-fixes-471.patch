@@ -1,7 +1,7 @@
-From c00a5dc5d136d26046da74278a4c6af2dd1c3665 Mon Sep 17 00:00:00 2001
+From 2e0cf15187e0354c8415d5e69e8cae827b05038e Mon Sep 17 00:00:00 2001
 From: Geoffrey Thomas <geofft@twosigma.com>
 Date: Wed, 16 Jun 2021 20:41:25 -0400
-Subject: [PATCH 3/3] Fix import on newer versions of pybind11 (fixes #471)
+Subject: [PATCH 3/4] Fix import on newer versions of pybind11 (fixes #471)
 
 logging.getLogger("nmslib") is not a module, so it can't be assigned to
 a py::module.
@@ -37,7 +37,7 @@ index ec584b3..3256780 100644
  sphinx_rtd_theme
  
 diff --git a/python_bindings/setup.py b/python_bindings/setup.py
-index 68fca03..c27ab37 100755
+index 46c965b..5770886 100755
 --- a/python_bindings/setup.py
 +++ b/python_bindings/setup.py
 @@ -10,7 +10,7 @@ __version__ = '2.1.1'
