@@ -45,6 +45,10 @@ requirements:
 test:
   imports:
     - nmslib
+  requires:
+    - pytest
+  commands:
+    - pytest -v --pyargs nmslib
 
 about:
   home: https://github.com/searchivarius/nmslib
