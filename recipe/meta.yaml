@@ -6,8 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/n/nmslib/nmslib-{{ version }}.tar.gz
-  sha256: 971294a7766f91c697d63c88c8adda4797a944346cc535a217393f4167a19c20
+  url: https://github.com/nmslib/nmslib/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 1f9cf1b63b5047ac13149abb0a319789db9096f49405020a3322914a151e7dc5
   patches:
     - patches/0001-remove-installation-requirements-handled-by-conda.patch
     # upstream has a cpu-guard that heckles people to compile from source if their
@@ -24,7 +24,7 @@ source:
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install ./python_bindings -vv
 
 requirements:
   build:
@@ -45,10 +45,12 @@ requirements:
 test:
   imports:
     - nmslib
+  source_files:
+    - python_bindings/tests
   requires:
     - pytest
   commands:
-    - pytest -v --pyargs nmslib
+    - pytest -v python_bindings/tests
 
 about:
   home: https://github.com/searchivarius/nmslib
