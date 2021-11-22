@@ -1,17 +1,33 @@
 {% set name = "nmslib" %}
-{% set version = "2.0.16" %}
+{% set version = "2.1.1" %}
 
 package:
-  name: {{ name|lower }}
+  name: nmslib
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: baf1e1648ced605d4d67170776682431acfa9c1b9310650d7b58e573bfde5d5f
+  url: https://github.com/nmslib/nmslib/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 1f9cf1b63b5047ac13149abb0a319789db9096f49405020a3322914a151e7dc5
+  patches:
+    - patches/0001-remove-installation-requirements-handled-by-conda.patch
+    # upstream has a cpu-guard that heckles people to compile from source if their
+    # CPU supports more features than the library has been compiled with, see
+    # https://github.com/nmslib/nmslib/blob/v2.1.1/python_bindings/tensorflow/cpu_feature_guard.cc#L158-L161
+    # needless to say, we need to aim for portability here, and want to avoid
+    # people following the instructions to install from pip, which might run
+    # into various problems around ABIs of numpy/C++ etc.
+    # Hopefully, we can provide more specific builds per CPU architecture
+    # in the future, see conda-forge/conda-forge.github.io#1261
+    - patches/0002-silence-log-that-tells-people-to-install-from-pip.patch
+    # backport nmslib/nmslib#488 for compatibility with newer pybind11
+    - patches/0003-Fix-import-on-newer-versions-of-pybind11-fixes-471.patch
+    # some weird interaction with pybind11 + quote escapes on windows that
+    # differs between python versions; 3.7 & 3.8 want backslashes, 3.9 doesn't
+    - patches/0004-do-not-escape-quotes-for-VERSION_INFO.patch  # [py>=39]
 
 build:
   number: 0
-  script: '{{ PYTHON }} -m pip install --no-deps --no-binary :all: .'
+  script: {{ PYTHON }} -m pip install ./python_bindings -vv
 
 requirements:
   build:
@@ -21,17 +37,24 @@ requirements:
     - python
     - setuptools
     - psutil
-    - pip >=10
+    - pip
     - pybind11 >=2.2.3
-    - numpy >=1.10.0
+    - numpy
   run:
     - python
     - {{ pin_compatible('numpy') }}
     - pybind11 >=2.2.3
+    - psutil
 
 test:
   imports:
     - nmslib
+  source_files:
+    - python_bindings/tests
+  requires:
+    - pytest
+  commands:
+    - pytest -v python_bindings/tests
 
 about:
   home: https://github.com/searchivarius/nmslib
@@ -42,3 +65,4 @@ about:
 extra:
   recipe-maintainers:
     - jzthree
+    - h-vetinari

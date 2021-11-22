@@ -1,0 +1,25 @@
+From 1b349456b7d666e39cea2097742b56d5da6a40ec Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Sun, 21 Nov 2021 12:08:56 +1100
+Subject: [PATCH 4/4] do not escape quotes for VERSION_INFO
+
+---
+ python_bindings/setup.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/python_bindings/setup.py b/python_bindings/setup.py
+index 5770886..c41682f 100755
+--- a/python_bindings/setup.py
++++ b/python_bindings/setup.py
+@@ -146,7 +146,7 @@ class BuildExt(build_ext):
+             if has_flag(self.compiler, '-fvisibility=hidden'):
+                 opts.append('-fvisibility=hidden')
+         elif ct == 'msvc':
+-            opts.append('/DVERSION_INFO=\\"%s\\"' %
++            opts.append('/DVERSION_INFO="%s"' %
+                         self.distribution.get_version())
+ 
+         print('Extra compilation arguments:', opts)
+-- 
+2.32.0.windows.2
+
