@@ -24,6 +24,8 @@ source:
     # some weird interaction with pybind11 + quote escapes on windows that
     # differs between python versions; 3.7 & 3.8 want backslashes, 3.9 doesn't
     - patches/0004-do-not-escape-quotes-for-VERSION_INFO.patch  # [py>=39]
+    # do not set -march=native which doesn't work with cross-compilation
+    - patches/0005-do-not-set-match-native-on-osx-arm.patch     # [build_platform != target_platform]
 
 build:
   number: 0

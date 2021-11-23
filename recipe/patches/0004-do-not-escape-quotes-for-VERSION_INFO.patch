@@ -1,7 +1,7 @@
 From 1b349456b7d666e39cea2097742b56d5da6a40ec Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 21 Nov 2021 12:08:56 +1100
-Subject: [PATCH 4/4] do not escape quotes for VERSION_INFO
+Subject: [PATCH 4/5] do not escape quotes for VERSION_INFO
 
 ---
  python_bindings/setup.py | 2 +-

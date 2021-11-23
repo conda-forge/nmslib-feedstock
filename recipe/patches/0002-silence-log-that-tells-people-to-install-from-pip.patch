@@ -1,7 +1,7 @@
 From ce1df78e54ad38d9bd239efc2eb5c4f2742af3ad Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 21 Nov 2021 10:35:18 +1100
-Subject: [PATCH 2/4] silence log that tells people to install from pip
+Subject: [PATCH 2/5] silence log that tells people to install from pip
 
 ---
  python_bindings/tensorflow/cpu_feature_guard.cc | 4 ----

@@ -1,7 +1,7 @@
 From 2e0cf15187e0354c8415d5e69e8cae827b05038e Mon Sep 17 00:00:00 2001
 From: Geoffrey Thomas <geofft@twosigma.com>
 Date: Wed, 16 Jun 2021 20:41:25 -0400
-Subject: [PATCH 3/4] Fix import on newer versions of pybind11 (fixes #471)
+Subject: [PATCH 3/5] Fix import on newer versions of pybind11 (fixes #471)
 
 logging.getLogger("nmslib") is not a module, so it can't be assigned to
 a py::module.
