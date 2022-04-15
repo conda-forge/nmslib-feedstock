@@ -21,9 +21,9 @@ source:
     - patches/0002-silence-log-that-tells-people-to-install-from-pip.patch
     # backport nmslib/nmslib#488 for compatibility with newer pybind11
     - patches/0003-Fix-import-on-newer-versions-of-pybind11-fixes-471.patch
-    # some weird interaction with pybind11 + quote escapes on windows that
-    # differs between python versions; 3.7 & 3.8 want backslashes, 3.9 doesn't
-    - patches/0004-do-not-escape-quotes-for-VERSION_INFO.patch  # [py>=39]
+    # some weird interaction with pybind11 + quote escapes;
+    # upstream CI need quotes escaped, we need them unescaped
+    - patches/0004-do-not-escape-quotes-for-VERSION_INFO.patch
 
 build:
   number: 1
