@@ -54,7 +54,10 @@ test:
   requires:
     - pytest
   commands:
-    - pytest -v python_bindings/tests
+    {% set tests_to_skip = "_not_a_real_test" %}
+    # skip a test that checks GC-behaviour for PyPy
+    {% set tests_to_skip = tests_to_skip + " or testMemoryLeak" %}  # [python_impl == "pypy"]
+    - pytest -v python_bindings/tests -k "not ({{ tests_to_skip }})"
 
 about:
   home: https://github.com/searchivarius/nmslib
